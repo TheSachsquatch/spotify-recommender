@@ -9,7 +9,12 @@ from sqlalchemy import inspect
 from apiclient.discovery import build
 
 def getRecs(genre, song_name):
-    engine = db.create_engine('postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender')
+    URL = ""
+    try:
+       URL = os.environ['DATABASE_URL']
+    except:
+        URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
+    engine = db.create_engine('postgresql+psycopg2://'+URL)
     insp = inspect(engine)
     track_dataframe = pd.DataFrame()
     if genre in insp.get_table_names():
