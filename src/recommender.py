@@ -4,6 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 from src.data_gen import *
 import psycopg2
+import os
 import sqlalchemy as db
 from sqlalchemy import inspect
 from apiclient.discovery import build
@@ -15,8 +16,6 @@ def getRecs(genre, song_name):
        URL = 'postgresql+psycopg2' +full_url[8:]
     except:
         URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
-    full_url = os.environ['DATABASE_URL']
-    URL = 'postgresql+psycopg2' +full_url[8:]
     engine = db.create_engine(URL)
     insp = inspect(engine)
     track_dataframe = pd.DataFrame()
