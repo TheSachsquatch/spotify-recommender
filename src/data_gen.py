@@ -3,6 +3,7 @@ import requests
 import psycopg2
 import sqlalchemy as db
 from boto.s3.connection import S3Connection
+import os
 
 ID = ""
 secret = ""
