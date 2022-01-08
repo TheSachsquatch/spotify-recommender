@@ -11,7 +11,7 @@ from apiclient.discovery import build
 def getRecs(genre, song_name):
     URL = ""
     try:
-       URL = os.environ['DATABASE_URL']
+       URL = 'postgresql+psycopg2' +(os.environ['DATABASE_URL'])[8:]
     except:
         URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
     engine = db.create_engine(URL)
