@@ -15,7 +15,8 @@ def getRecs(genre, song_name):
        full_url = os.environ['DATABASE_URL']
        URL = 'postgresql+psycopg2' +full_url[8:]
     except:
-        URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
+        URL = ""
+        #URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
     engine = db.create_engine(URL)
     insp = inspect(engine)
     track_dataframe = pd.DataFrame()
