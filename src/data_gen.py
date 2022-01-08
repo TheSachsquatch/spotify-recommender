@@ -3,9 +3,17 @@ import requests
 import psycopg2
 import sqlalchemy as db
 import config
+from boto.s3.connection import S3Connection
 
-ID = config.api_key
-secret = config.secret_key
+ID = ""
+secret = ""
+try:
+    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+    ID= s3.api_key
+    secret = s3.secret
+except:
+    ID = config.api_key
+    secret = config.secret_key
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 
