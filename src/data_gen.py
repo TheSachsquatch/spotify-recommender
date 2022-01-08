@@ -2,7 +2,6 @@ import pandas as pd
 import requests
 import psycopg2
 import sqlalchemy as db
-import config
 from boto.s3.connection import S3Connection
 
 ID = ""
@@ -12,6 +11,7 @@ try:
     ID= s3.api_key
     secret = s3.secret
 except:
+    import src.config as config
     ID = config.api_key
     secret = config.secret_key
 
