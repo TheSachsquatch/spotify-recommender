@@ -1,0 +1,22 @@
+*{
+    font-family:sans-serif;
+    width: 965px;
+    margin: auto;
+}
+
+#container{
+    align-items:center;
+    justify-content:center;
+}
+
+iframe{
+    width:300px;
+    height:300px;
+}
+
+h1{
+    margin-top:20px;
+    margin-bottom:20px;
+    text-align: center;
+    font-size:xx-large;
+ }

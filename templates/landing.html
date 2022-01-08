@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+    <link rel = "stylesheet" href = "{{ url_for('static',filename='styles/landing.css') }}">
+</head>
+
+{% block main %}
+<title>
+    song recommender
+</title>
+<h1>
+    song recommender
+</h1>
+<body>
+    <form id = "search_box">
+        <input type = "text" size = "40" onkeyup="getSongs(this.value)" id = "search">
+    </form>
+    <div id = "suggestions"> </div>
+</body>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        function getSongs(str){ 
+            var el = document.getElementById('suggestions');
+            if(str.length==0)
+            {
+                return;
+            }
+            else{
+                el.remove();
+                var songs;
+                var titles;
+                var artists;
+                var images;
+                fetch('/', {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify(str),
+                    cache: "no-cache",
+                    headers: new Headers({
+                        "content-type": "application/json"
+                    })
+                })
+                .then(function(response){
+                    response.json().then(function(data)
+                    {
+                        songs = {...data};
+                        titles = songs.Titles;
+                        artists = songs.Artists;
+                        images = songs.Images;
+                        ids = songs.SongID;
+                        var list = document.createElement('div');
+                        list.id = "suggestions"
+                        for(var num = 0; num<5; num++)
+                        {
+                            const container = document.createElement('div');
+                            container.id = "container";
+                            const suggest = document.createElement('div');
+                            suggest.id= "suggest";
+                            link = "/generator?ids="+ids[num]+"/";
+                            var content = document.createElement('a');
+                            content.href = link;
+                            content.innerText = titles[num] +" by " + artists[num];
+                            content.id = 'content'
+                            suggest.appendChild(content);
+                            var img = document.createElement("img");
+                            img.src = images[num];
+                            img.id = "suggest_img";
+                            const image = document.createElement('div');
+                            image.id = "image_elm";
+                            image.append(img);
+                            container.appendChild(image);
+                            container.appendChild(suggest);
+                            list.appendChild(container);
+                            
+                        }
+                        var searchBox = document.getElementById("search_box");
+                        searchBox.appendChild(list);
+                    });
+                })
+                
+                
+            }
+        }
+    </script>
+
+{% endblock %}
