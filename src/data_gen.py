@@ -12,10 +12,9 @@ try:
     ID= s3.api_key
     secret = s3.secret
 except:
-    ID= ""
-    #import src.config as config
-    #ID = config.api_key
-    #secret = config.secret_key
+    import src.config as config
+    ID = config.api_key
+    secret = config.secret_key
 
 AUTH_URL = 'https://accounts.spotify.com/api/token'
 
