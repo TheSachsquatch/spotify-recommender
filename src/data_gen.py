@@ -8,9 +8,8 @@ import os
 ID = ""
 secret = ""
 try:
-    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
-    ID= s3.api_key
-    secret = s3.secret
+    ID=S3Connection(os.environ['S3_KEY'])
+    secret = S3Connection(os.environ['S3_SECRET'])
 except:
     import src.config as config
     ID = config.api_key
