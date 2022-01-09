@@ -1,12 +1,16 @@
 <!DOCTYPE HTML>
 <head>
     <link rel = "stylesheet" href = "{{url_for ('static', filename='styles/recommendations.css') }}">
-    <link rel ="shortcut_icon" href = "#">
+    <link rel ="icon" href = {{ url_for('static', filename='favicon.png') }}>
+    <link rel = "shortcut_icon" href = {{ url_for('static', filename='favicon.ico') }}>
 </head>
 {% block main%}
-<h1 id = "head">
-    song selected
-</h1>
+<div id = "top-page">
+    <a href = "/" id = "back-button"> back to search </a>
+    <h1 id = "head">
+        song selected
+    </h1>
+</div>
 <h2 id = "recs_header">
     generated recs
 </h2>
@@ -14,57 +18,37 @@
 
 {% block script%}
     <script>
-        /*
-            fetch('/generator',{
-                method: "GET",
-                headers: new Headers({
-                    "content-type": "application/json"
-                })
-            })
-            .then(function(response){
-                response.json().then(function(data)
-                {
-        */  
-                    
-                    //songs = {...data}
-
-                    //songs = {{recs}}.replace(/&#34;/,'"')
-                    titles = {{recs.track_name |safe }}
-                    artists = {{recs.artist_name |safe }}
-                    links = {{recs.links |safe}}
-                    const container = document.createElement('div')
-                    container.id = "container"
-                    for(var num = 5; num<10; num++)
-                    {
-                        const suggest = document.createElement('div')
-                        suggest.id = "suggest"
-                        var content = document.createElement('div')
-                        content.innerText = titles[num] + " by " + artists[num]
-                        content.id = "content"
-                        var video = document.createElement('iframe')
-                        video.src = links[num]
-                        suggest.appendChild(content)
-                        suggest.appendChild(video)
-                        container.appendChild(suggest)
-                    }
-                    cur_track = titles[0]
-                    cur_artist = artists[0]
-                    const cur_song = document.createElement('div')
-                    cur_song.id = "song_container"
-                    const title = document.createElement('div')
-                    title.innerText = cur_track
-                    const artist = document.createElement('div')
-                    artist.innerText = cur_artist
-                    cur_song.appendChild(title)
-                    cur_song.appendChild(artist)
-                    var header = document.getElementById('head')
-                    header.appendChild(cur_song)
-                    var rec = document.getElementById('recs_header')
-                    rec.appendChild(container)
-                //});
-
-            //})
-        
-    
+        titles = {{recs.track_name |safe }}
+        artists = {{recs.artist_name |safe }}
+        links = {{recs.links |safe}}
+        const container = document.createElement('div')
+        container.id = "container"
+        for(var num = 5; num<10; num++)
+        {
+            const suggest = document.createElement('div')
+            suggest.id = "suggest"
+            var content = document.createElement('div')
+            content.innerText = titles[num] + " by " + artists[num]
+            content.id = "content"
+            var video = document.createElement('iframe')
+            video.src = links[num]
+            suggest.appendChild(content)
+            suggest.appendChild(video)
+            container.appendChild(suggest)
+        }
+        cur_track = titles[0]
+        cur_artist = artists[0]
+        const cur_song = document.createElement('div')
+        cur_song.id = "song_container"
+        const title = document.createElement('div')
+        title.innerText = cur_track
+        const artist = document.createElement('div')
+        artist.innerText = cur_artist
+        cur_song.appendChild(title)
+        cur_song.appendChild(artist)
+        var header = document.getElementById('head')
+        header.appendChild(cur_song)
+        var rec = document.getElementById('recs_header')
+        rec.appendChild(container)
     </script>
 {%endblock%}
