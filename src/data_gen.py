@@ -78,7 +78,12 @@ def dataset(genre):
                                     'tempo' : tempo, 'key': key, 'valence' : valence, 
                                     'instrumentalness': instrumentalness, 'danceability' : danceability, 'mode' : mode,
                                 'speechiness': speechiness})
-    engine = db.create_engine('postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender')
+    try:
+       full_url = os.environ['DATABASE_URL']
+       URL = 'postgresql+psycopg2' +full_url[8:]
+    except:
+        URL = 'postgresql+psycopg2://sachinvijayaraj@localhost/music_recommender'
+    engine = db.create_engine(URL)
     track_dataframe.to_sql(genre, engine, if_exists='replace', index = False)
     return track_dataframe
 
